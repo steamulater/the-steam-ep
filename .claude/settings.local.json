@@ -16,7 +16,8 @@
       "WebFetch(domain:linktr.ee)",
       "WebFetch(domain:www.shazam.com)",
       "WebFetch(domain:open.spotify.com)",
-      "Bash(/Users/tamukamartin/Desktop/WRTW_music/campaign/content_calendar.md:*)"
+      "Bash(/Users/tamukamartin/Desktop/WRTW_music/campaign/content_calendar.md:*)",
+      "Bash(git push:*)"
     ]
   }
 }

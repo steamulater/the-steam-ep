@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The STEAM EP — Analytics Report</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0a0a0f;
+      color: #e0e0e0;
+      padding: 40px 20px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    h1 {
+      font-size: 2rem;
+      color: #00ffcc;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #00ffcc44;
+      padding-bottom: 12px;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-title {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #00ffcc;
+      margin-bottom: 20px;
+      border-left: 3px solid #00ffcc;
+      padding-left: 10px;
+    }
+
+    /* Stat cards */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: #111120;
+      border: 1px solid #222240;
+      border-radius: 8px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-card .label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .stat-card .value {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+    .stat-card .unit {
+      font-size: 0.7rem;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* Platform distribution bar */
+    .bar-chart { margin-bottom: 24px; }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+    .bar-label {
+      width: 160px;
+      font-size: 0.75rem;
+      color: #aaa;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      background: #111120;
+      border-radius: 4px;
+      height: 24px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      transition: width 1s ease;
+    }
+    .bar-fill.green  { background: linear-gradient(90deg, #00ffcc, #00cc99); color: #003322; }
+    .bar-fill.blue   { background: linear-gradient(90deg, #4488ff, #2255cc); color: #001133; }
+    .bar-fill.purple { background: linear-gradient(90deg, #aa44ff, #7722cc); color: #110022; }
+    .bar-fill.orange { background: linear-gradient(90deg, #ff8844, #cc5522); color: #110800; }
+    .bar-fill.pink   { background: linear-gradient(90deg, #ff44aa, #cc2277); color: #110011; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #222240;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00ffcc;
+    }
+    .timeline-item.future::before { background: #333; border: 2px solid #00ffcc44; }
+    .timeline-date {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+    .timeline-event {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .timeline-item.future .timeline-event { color: #555; }
+    .timeline-note {
+      font-size: 0.75rem;
+      color: #00ffcc99;
+      margin-top: 4px;
+    }
+
+    /* EP Track Status */
+    .track-list { display: flex; flex-direction: column; gap: 10px; }
+    .track-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #111120;
+      border: 1px solid #222240;
+      border-radius: 6px;
+      padding: 12px 16px;
+    }
+    .track-num {
+      font-size: 0.7rem;
+      color: #444;
+      width: 20px;
+    }
+    .track-name { flex: 1; font-size: 0.85rem; color: #ddd; }
+    .track-discipline {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00ffcc;
+      width: 100px;
+      text-align: right;
+    }
+    .track-status {
+      font-size: 0.65rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .status-released { background: #003322; color: #00ffcc; border: 1px solid #00ffcc44; }
+    .status-ready    { background: #001133; color: #4488ff; border: 1px solid #4488ff44; }
+    .status-redo     { background: #220011; color: #ff4488; border: 1px solid #ff448844; }
+
+    /* Insight box */
+    .insight {
+      background: #111120;
+      border: 1px solid #00ffcc22;
+      border-left: 3px solid #00ffcc;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .insight .insight-title {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: #00ffcc;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .insight p { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin: 2px;
+      background: #00ffcc22;
+      color: #00ffcc;
+      border: 1px solid #00ffcc44;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.65rem;
+      color: #333;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>The STEAM EP</h1>
+  <div class="subtitle">ANALYTICS REPORT &nbsp;|&nbsp; MWANA STEAM &nbsp;|&nbsp; STEAMULATER &nbsp;|&nbsp; APR 5, 2026</div>
+
+  <!-- KEY STATS -->
+  <div class="section">
+    <div class="section-title">Key Metrics — Track 1 (Science Rules the World)</div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="label">Monthly Listeners</div>
+        <div class="value">8</div>
+        <div class="unit">Spotify</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Markets Available</div>
+        <div class="value">190+</div>
+        <div class="unit">countries</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Platforms</div>
+        <div class="value">24</div>
+        <div class="unit">stores via DistroKid</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Days Since Release</div>
+        <div class="value">108</div>
+        <div class="unit">Dec 18, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Revenue Split</div>
+        <div class="value">100%</div>
+        <div class="unit">artist keeps all</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Days to EP Drop</div>
+        <div class="value">4</div>
+        <div class="unit">April 9, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATFORM REACH -->
+  <div class="section">
+    <div class="section-title">Platform Distribution Reach</div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Spotify</div>
+        <div class="bar-track"><div class="bar-fill green" style="width:100%">190+ markets</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Apple Music</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:95%">190+ markets</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">TikTok / SoundOn</div>
+        <div class="bar-track"><div class="bar-fill purple" style="width:85%">global</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Amazon Music</div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:80%">global</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">YouTube Music</div>
+        <div class="bar-track"><div class="bar-fill pink" style="width:90%">global</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">+ 19 more stores</div>
+        <div class="bar-track"><div class="bar-fill green" style="width:60%">Deezer, Tidal, iHeart...</div></div>
+      </div>
+    </div>
+    <p style="font-size:0.7rem;color:#444;">Stream counts for platforms other than Spotify not yet retrieved. Pull from DistroKid Stats tab.</p>
+  </div>
+
+  <!-- EP TRACKLIST STATUS -->
+  <div class="section">
+    <div class="section-title">EP Tracklist Status</div>
+    <div class="track-list">
+      <div class="track-row">
+        <div class="track-num">01</div>
+        <div class="track-name">Science Rules the World</div>
+        <div class="track-discipline">Science</div>
+        <div class="track-status status-released">RELEASED</div>
+      </div>
+      <div class="track-row">
+        <div class="track-num">02</div>
+        <div class="track-name">Technology Rules the World</div>
+        <div class="track-discipline">Technology</div>
+        <div class="track-status status-ready">READY</div>
+      </div>
+      <div class="track-row">
+        <div class="track-num">03</div>
+        <div class="track-name">Engineering Rules the World</div>
+        <div class="track-discipline">Engineering</div>
+        <div class="track-status status-redo">NEEDS REDO</div>
+      </div>
+      <div class="track-row">
+        <div class="track-num">04</div>
+        <div class="track-name">Art Rules the World</div>
+        <div class="track-discipline">Art</div>
+        <div class="track-status status-ready">READY</div>
+      </div>
+      <div class="track-row">
+        <div class="track-num">05</div>
+        <div class="track-name">Math Rules the World</div>
+        <div class="track-discipline">Math</div>
+        <div class="track-status status-ready">READY</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <div class="section-title">Release Timeline</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">DEC 18, 2025</div>
+        <div class="timeline-event">Science Rules the World — released as single</div>
+        <div class="timeline-note">Distributed to 24 platforms via DistroKid</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">APR 5, 2026 — TODAY</div>
+        <div class="timeline-event">EP announced &bull; Campaign launched &bull; Pre-save push begins</div>
+        <div class="timeline-note">108 days after Track 1 release</div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-date">APR 6–8, 2026</div>
+        <div class="timeline-event">Track reveals &bull; Engineering redo on Suno &bull; EP upload to DistroKid</div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-date">APR 9, 2026</div>
+        <div class="timeline-event">THE STEAM EP — drops on all 24 platforms</div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-date">APR 14+, 2026</div>
+        <div class="timeline-event">Curator outreach begins &bull; Analytics review</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="section">
+    <div class="section-title">Pre-Release Insights</div>
+
+    <div class="insight">
+      <div class="insight-title">Discovery Gap</div>
+      <p>Track 1 has 8 monthly listeners after 108 days with zero active promotion. The track is live on 190+ markets but has no social or playlist footprint. This is not a quality problem — it's a visibility problem. The EP launch is the moment to fix it.</p>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">Concept Advantage</div>
+      <p>STEAM as a concept is highly pitchable to education communities, science blogs, and innovation-focused playlists. Most artists don't have a story this clear. Use it in every pitch and social post.</p>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">AI Music Angle</div>
+      <p>Suno-generated music faces algorithmic headwinds on Spotify (excluded from Discover Weekly/Release Radar). Playlist curator outreach and direct social promotion are your primary growth levers. The AI origin is also a story — own it.</p>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">4-Day Launch Window</div>
+      <p>Releasing April 9 means uploading to DistroKid today or tomorrow. Spotify delivery is typically 24–48 hrs. Some stores may lag. Use expedited delivery if available. Prioritise finishing the Engineering track redo first.</p>
+    </div>
+  </div>
+
+  <!-- TAGS -->
+  <div class="section">
+    <div class="section-title">Campaign Tags</div>
+    <span class="tag">#STEAM</span>
+    <span class="tag">#STEAMeducation</span>
+    <span class="tag">#ScienceMusic</span>
+    <span class="tag">#AIMusic</span>
+    <span class="tag">#SunoAI</span>
+    <span class="tag">#MwanaSTEAM</span>
+    <span class="tag">#TheSTEAMEP</span>
+    <span class="tag">#WhoRunsTheWorld</span>
+    <span class="tag">#STEAMulater</span>
+  </div>
+
+  <footer>GENERATED APR 5, 2026 &nbsp;|&nbsp; THE STEAM EP &nbsp;|&nbsp; MWANA STEAM &nbsp;|&nbsp; STEAMULATER</footer>
+
+</div>
+</body>
+</html>
