@@ -17,7 +17,16 @@
       "WebFetch(domain:www.shazam.com)",
       "WebFetch(domain:open.spotify.com)",
       "Bash(/Users/tamukamartin/Desktop/WRTW_music/campaign/content_calendar.md:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ls -lt ~/Desktop/*.png ~/Desktop/*.jpg ~/Desktop/*.jpeg)",
+      "Bash(cp '/Users/tamukamartin/Desktop/Screenshot 2026-04-05 at 6.32.45 PM.png' /Users/tamukamartin/Desktop/WRTW_music/analytics/images/streaming_stats.png)",
+      "Bash(cp '/Users/tamukamartin/Desktop/Screenshot 2026-04-05 at 6.32.51 PM.png' /Users/tamukamartin/Desktop/WRTW_music/analytics/images/streams_by_country.png)",
+      "Bash(cp '/Users/tamukamartin/Desktop/Screenshot 2026-04-05 at 6.32.58 PM.png' /Users/tamukamartin/Desktop/WRTW_music/analytics/images/discovery_sources.png)",
+      "Bash(mkdir -p /Users/tamukamartin/Desktop/WRTW_music/analytics/images)",
+      "Bash(cp \"Screenshot 2026-04-05 at 6.32.45 PM.png\" /Users/tamukamartin/Desktop/WRTW_music/analytics/images/streaming_stats.png)",
+      "Bash(cp \"Screenshot 2026-04-05 at 6.32.51 PM.png\" /Users/tamukamartin/Desktop/WRTW_music/analytics/images/streams_by_country.png)",
+      "Bash(cp \"Screenshot 2026-04-05 at 6.32.58 PM.png\" /Users/tamukamartin/Desktop/WRTW_music/analytics/images/discovery_sources.png)",
+      "Bash(python3:*)"
     ]
   }
 }

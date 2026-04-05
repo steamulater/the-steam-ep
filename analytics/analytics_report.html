@@ -12,7 +12,7 @@
       color: #e0e0e0;
       padding: 40px 20px;
     }
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 960px; margin: 0 auto; }
 
     h1 {
       font-size: 2rem;
@@ -29,10 +29,7 @@
       margin-bottom: 40px;
       letter-spacing: 2px;
     }
-
-    .section {
-      margin-bottom: 48px;
-    }
+    .section { margin-bottom: 52px; }
     .section-title {
       font-size: 0.75rem;
       letter-spacing: 4px;
@@ -46,46 +43,48 @@
     /* Stat cards */
     .stat-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
       margin-bottom: 32px;
     }
     .stat-card {
       background: #111120;
       border: 1px solid #222240;
       border-radius: 8px;
-      padding: 20px 16px;
+      padding: 20px 14px;
       text-align: center;
     }
     .stat-card .label {
-      font-size: 0.65rem;
-      letter-spacing: 3px;
+      font-size: 0.62rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: #666;
+      color: #555;
       margin-bottom: 10px;
     }
     .stat-card .value {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: bold;
       color: #00ffcc;
     }
     .stat-card .unit {
-      font-size: 0.7rem;
-      color: #555;
+      font-size: 0.65rem;
+      color: #444;
       margin-top: 4px;
     }
+    .stat-card.highlight { border-color: #00ffcc44; }
+    .stat-card.highlight .value { color: #fff; }
 
-    /* Platform distribution bar */
-    .bar-chart { margin-bottom: 24px; }
+    /* Bar charts */
+    .bar-chart { margin-bottom: 8px; }
     .bar-row {
       display: flex;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       gap: 12px;
     }
     .bar-label {
-      width: 160px;
-      font-size: 0.75rem;
+      width: 140px;
+      font-size: 0.72rem;
       color: #aaa;
       text-align: right;
       flex-shrink: 0;
@@ -94,139 +93,172 @@
       flex: 1;
       background: #111120;
       border-radius: 4px;
-      height: 24px;
+      height: 26px;
       overflow: hidden;
+      border: 1px solid #1a1a30;
     }
     .bar-fill {
       height: 100%;
-      border-radius: 4px;
+      border-radius: 3px;
       display: flex;
       align-items: center;
-      padding-left: 8px;
+      padding-left: 10px;
       font-size: 0.7rem;
       font-weight: bold;
-      transition: width 1s ease;
     }
-    .bar-fill.green  { background: linear-gradient(90deg, #00ffcc, #00cc99); color: #003322; }
-    .bar-fill.blue   { background: linear-gradient(90deg, #4488ff, #2255cc); color: #001133; }
-    .bar-fill.purple { background: linear-gradient(90deg, #aa44ff, #7722cc); color: #110022; }
-    .bar-fill.orange { background: linear-gradient(90deg, #ff8844, #cc5522); color: #110800; }
-    .bar-fill.pink   { background: linear-gradient(90deg, #ff44aa, #cc2277); color: #110011; }
+    .bar-num {
+      font-size: 0.72rem;
+      color: #555;
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .green  { background: linear-gradient(90deg, #00ffcc, #00cc99); color: #003322; }
+    .blue   { background: linear-gradient(90deg, #4488ff, #2255cc); color: #e0e8ff; }
+    .purple { background: linear-gradient(90deg, #aa44ff, #7722cc); color: #f0e0ff; }
+    .orange { background: linear-gradient(90deg, #ff8844, #cc5522); color: #fff0e0; }
+    .pink   { background: linear-gradient(90deg, #ff44aa, #cc2277); color: #ffe0f0; }
+    .teal   { background: linear-gradient(90deg, #44ffdd, #22ccaa); color: #003322; }
+    .yellow { background: linear-gradient(90deg, #ffdd44, #ccaa22); color: #332200; }
+
+    /* Monthly bar chart */
+    .month-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 160px;
+      padding: 0 0 8px 0;
+      border-bottom: 1px solid #222240;
+      margin-bottom: 12px;
+    }
+    .month-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+    .month-bar-wrap { flex: 1; display: flex; align-items: flex-end; width: 100%; }
+    .month-bar {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      min-height: 2px;
+      position: relative;
+    }
+    .month-bar .count {
+      position: absolute;
+      top: -18px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.65rem;
+      color: #00ffcc;
+    }
+    .month-label { font-size: 0.65rem; color: #555; letter-spacing: 1px; }
+
+    /* Donut / pie proxy */
+    .pie-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .pie-legend { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+    .legend-row { display: flex; align-items: center; gap: 10px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-label { font-size: 0.75rem; color: #aaa; flex: 1; }
+    .legend-pct { font-size: 0.75rem; color: #00ffcc; font-weight: bold; }
+
+    /* Screenshot embeds */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .screenshot-card {
+      background: #111120;
+      border: 1px solid #222240;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .screenshot-card img {
+      width: 100%;
+      display: block;
+    }
+    .screenshot-caption {
+      padding: 10px 14px;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+    }
 
     /* Timeline */
     .timeline { position: relative; padding-left: 24px; }
     .timeline::before {
       content: '';
       position: absolute;
-      left: 6px;
-      top: 0;
-      bottom: 0;
+      left: 6px; top: 0; bottom: 0;
       width: 2px;
       background: #222240;
     }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 24px;
-    }
+    .timeline-item { position: relative; margin-bottom: 22px; }
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -21px;
-      top: 6px;
-      width: 10px;
-      height: 10px;
+      left: -21px; top: 6px;
+      width: 10px; height: 10px;
       border-radius: 50%;
       background: #00ffcc;
     }
-    .timeline-item.future::before { background: #333; border: 2px solid #00ffcc44; }
-    .timeline-date {
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      color: #555;
-      margin-bottom: 4px;
-    }
-    .timeline-event {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-    .timeline-item.future .timeline-event { color: #555; }
-    .timeline-note {
-      font-size: 0.75rem;
-      color: #00ffcc99;
-      margin-top: 4px;
-    }
+    .timeline-item.future::before { background: #222; border: 2px solid #00ffcc33; }
+    .timeline-date { font-size: 0.62rem; letter-spacing: 2px; color: #444; margin-bottom: 3px; }
+    .timeline-event { font-size: 0.85rem; color: #ccc; }
+    .timeline-item.future .timeline-event { color: #444; }
+    .timeline-note { font-size: 0.72rem; color: #00ffcc88; margin-top: 3px; }
 
-    /* EP Track Status */
+    /* Track list */
     .track-list { display: flex; flex-direction: column; gap: 10px; }
     .track-row {
       display: flex;
       align-items: center;
       gap: 16px;
       background: #111120;
-      border: 1px solid #222240;
+      border: 1px solid #1a1a30;
       border-radius: 6px;
       padding: 12px 16px;
     }
-    .track-num {
-      font-size: 0.7rem;
-      color: #444;
-      width: 20px;
-    }
-    .track-name { flex: 1; font-size: 0.85rem; color: #ddd; }
-    .track-discipline {
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #00ffcc;
-      width: 100px;
-      text-align: right;
-    }
+    .track-num { font-size: 0.7rem; color: #333; width: 20px; }
+    .track-name { flex: 1; font-size: 0.85rem; color: #ccc; }
+    .track-disc { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: #00ffcc88; width: 110px; text-align: right; }
     .track-status {
-      font-size: 0.65rem;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-size: 0.62rem; padding: 3px 10px; border-radius: 20px;
+      font-weight: bold; letter-spacing: 1px;
     }
-    .status-released { background: #003322; color: #00ffcc; border: 1px solid #00ffcc44; }
-    .status-ready    { background: #001133; color: #4488ff; border: 1px solid #4488ff44; }
-    .status-redo     { background: #220011; color: #ff4488; border: 1px solid #ff448844; }
+    .released { background: #003322; color: #00ffcc; border: 1px solid #00ffcc44; }
+    .ready    { background: #001133; color: #4488ff; border: 1px solid #4488ff44; }
+    .redo     { background: #220011; color: #ff4488; border: 1px solid #ff448844; }
 
-    /* Insight box */
+    /* Insight */
     .insight {
       background: #111120;
       border: 1px solid #00ffcc22;
       border-left: 3px solid #00ffcc;
       border-radius: 6px;
-      padding: 16px 20px;
-      margin-bottom: 16px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
     }
-    .insight .insight-title {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: #00ffcc;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+    .insight .ititle {
+      font-size: 0.65rem; letter-spacing: 2px; color: #00ffcc;
+      text-transform: uppercase; margin-bottom: 7px;
     }
-    .insight p { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+    .insight p { font-size: 0.82rem; color: #999; line-height: 1.6; }
+    .insight.warn { border-left-color: #ff8844; }
+    .insight.warn .ititle { color: #ff8844; }
+    .insight.good { border-left-color: #44ffaa; }
+    .insight.good .ititle { color: #44ffaa; }
 
     .tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      padding: 2px 8px;
-      border-radius: 12px;
-      margin: 2px;
-      background: #00ffcc22;
-      color: #00ffcc;
-      border: 1px solid #00ffcc44;
+      display: inline-block; font-size: 0.62rem;
+      padding: 2px 8px; border-radius: 12px; margin: 2px;
+      background: #00ffcc11; color: #00ffcc99; border: 1px solid #00ffcc22;
     }
 
     footer {
-      margin-top: 60px;
-      font-size: 0.65rem;
-      color: #333;
-      letter-spacing: 2px;
-      text-align: center;
+      margin-top: 60px; font-size: 0.62rem;
+      color: #222; letter-spacing: 2px; text-align: center;
     }
   </style>
 </head>
@@ -234,21 +266,36 @@
 <div class="container">
 
   <h1>The STEAM EP</h1>
-  <div class="subtitle">ANALYTICS REPORT &nbsp;|&nbsp; MWANA STEAM &nbsp;|&nbsp; STEAMULATER &nbsp;|&nbsp; APR 5, 2026</div>
+  <div class="subtitle">ANALYTICS REPORT &nbsp;·&nbsp; MWANA STEAM &nbsp;·&nbsp; STEAMULATER &nbsp;·&nbsp; APRIL 5, 2026</div>
 
   <!-- KEY STATS -->
   <div class="section">
-    <div class="section-title">Key Metrics — Track 1 (Science Rules the World)</div>
+    <div class="section-title">Key Metrics — Science Rules the World (Track 1)</div>
     <div class="stat-grid">
+      <div class="stat-card highlight">
+        <div class="label">Total Streams</div>
+        <div class="value">393</div>
+        <div class="unit">last 365 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Last 90 Days</div>
+        <div class="value">236</div>
+        <div class="unit">streams</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Last 30 Days</div>
+        <div class="value">41</div>
+        <div class="unit">streams</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Last 7 Days</div>
+        <div class="value">2</div>
+        <div class="unit">streams</div>
+      </div>
       <div class="stat-card">
         <div class="label">Monthly Listeners</div>
         <div class="value">8</div>
         <div class="unit">Spotify</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Markets Available</div>
-        <div class="value">190+</div>
-        <div class="unit">countries</div>
       </div>
       <div class="stat-card">
         <div class="label">Platforms</div>
@@ -256,53 +303,160 @@
         <div class="unit">stores via DistroKid</div>
       </div>
       <div class="stat-card">
-        <div class="label">Days Since Release</div>
-        <div class="value">108</div>
-        <div class="unit">Dec 18, 2025</div>
+        <div class="label">Days to EP Drop</div>
+        <div class="value">4</div>
+        <div class="unit">April 9, 2026</div>
       </div>
       <div class="stat-card">
         <div class="label">Revenue Split</div>
         <div class="value">100%</div>
         <div class="unit">artist keeps all</div>
       </div>
-      <div class="stat-card">
-        <div class="label">Days to EP Drop</div>
-        <div class="value">4</div>
-        <div class="unit">April 9, 2026</div>
+    </div>
+  </div>
+
+  <!-- MONTHLY STREAMS -->
+  <div class="section">
+    <div class="section-title">Monthly Streaming Trend (Spotify)</div>
+    <div class="month-chart">
+      <div class="month-col">
+        <div class="month-bar-wrap">
+          <div class="month-bar green" style="height:52%">
+            <span class="count">~100</span>
+          </div>
+        </div>
+        <div class="month-label">DEC</div>
+      </div>
+      <div class="month-col">
+        <div class="month-bar-wrap">
+          <div class="month-bar blue" style="height:100%">
+            <span class="count">~200</span>
+          </div>
+        </div>
+        <div class="month-label">JAN</div>
+      </div>
+      <div class="month-col">
+        <div class="month-bar-wrap">
+          <div class="month-bar purple" style="height:20%">
+            <span class="count">~40</span>
+          </div>
+        </div>
+        <div class="month-label">FEB</div>
+      </div>
+      <div class="month-col">
+        <div class="month-bar-wrap">
+          <div class="month-bar orange" style="height:18%">
+            <span class="count">~40</span>
+          </div>
+        </div>
+        <div class="month-label">MAR</div>
+      </div>
+      <div class="month-col">
+        <div class="month-bar-wrap">
+          <div class="month-bar pink" style="height:2%">
+            <span class="count">2</span>
+          </div>
+        </div>
+        <div class="month-label">APR</div>
+      </div>
+    </div>
+    <p style="font-size:0.68rem;color:#333;">April is 5 days in — EP drops April 9. Source: DistroKid Stats</p>
+  </div>
+
+  <!-- STREAMS BY COUNTRY -->
+  <div class="section">
+    <div class="section-title">Streams by Country</div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">United States</div>
+        <div class="bar-track"><div class="bar-fill green" style="width:100%">🇺🇸</div></div>
+        <div class="bar-num">218</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Switzerland</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:2.3%">🇨🇭</div></div>
+        <div class="bar-num">5</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Spain</div>
+        <div class="bar-track"><div class="bar-fill purple" style="width:2.3%">🇪🇸</div></div>
+        <div class="bar-num">5</div>
+      </div>
+    </div>
+    <p style="font-size:0.68rem;color:#333;margin-top:8px;">US dominates at 218 streams. Early international reach into Europe (CH + ES).</p>
+  </div>
+
+  <!-- DISCOVERY SOURCES -->
+  <div class="section">
+    <div class="section-title">How Listeners Found the Track</div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Collection</div>
+        <div class="bar-track"><div class="bar-fill green" style="width:27.82%">27.82%</div></div>
+        <div class="bar-num">27.8%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Search</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:24.60%">24.60%</div></div>
+        <div class="bar-num">24.6%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Other Playlists</div>
+        <div class="bar-track"><div class="bar-fill purple" style="width:22.98%">22.98%</div></div>
+        <div class="bar-num">23.0%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Other</div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:14.11%">14.11%</div></div>
+        <div class="bar-num">14.1%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Album</div>
+        <div class="bar-track"><div class="bar-fill teal" style="width:7.26%">7.26%</div></div>
+        <div class="bar-num">7.3%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Artist Page</div>
+        <div class="bar-track"><div class="bar-fill yellow" style="width:3.23%">3.23%</div></div>
+        <div class="bar-num">3.2%</div>
       </div>
     </div>
   </div>
 
-  <!-- PLATFORM REACH -->
+  <!-- OFFLINE VS ONLINE -->
   <div class="section">
-    <div class="section-title">Platform Distribution Reach</div>
+    <div class="section-title">Online vs Offline Listening</div>
     <div class="bar-chart">
       <div class="bar-row">
-        <div class="bar-label">Spotify</div>
-        <div class="bar-track"><div class="bar-fill green" style="width:100%">190+ markets</div></div>
+        <div class="bar-label">Online</div>
+        <div class="bar-track"><div class="bar-fill green" style="width:96.86%">96.86%</div></div>
+        <div class="bar-num">96.9%</div>
       </div>
       <div class="bar-row">
-        <div class="bar-label">Apple Music</div>
-        <div class="bar-track"><div class="bar-fill blue" style="width:95%">190+ markets</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">TikTok / SoundOn</div>
-        <div class="bar-track"><div class="bar-fill purple" style="width:85%">global</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Amazon Music</div>
-        <div class="bar-track"><div class="bar-fill orange" style="width:80%">global</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">YouTube Music</div>
-        <div class="bar-track"><div class="bar-fill pink" style="width:90%">global</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">+ 19 more stores</div>
-        <div class="bar-track"><div class="bar-fill green" style="width:60%">Deezer, Tidal, iHeart...</div></div>
+        <div class="bar-label">Offline / Saved</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:3.14%">3.14%</div></div>
+        <div class="bar-num">3.1%</div>
       </div>
     </div>
-    <p style="font-size:0.7rem;color:#444;">Stream counts for platforms other than Spotify not yet retrieved. Pull from DistroKid Stats tab.</p>
+  </div>
+
+  <!-- RAW SCREENSHOTS -->
+  <div class="section">
+    <div class="section-title">Source Screenshots — DistroKid Dashboard</div>
+    <div class="screenshot-grid">
+      <div class="screenshot-card">
+        <img src="images/streaming_stats.png" alt="Streaming Stats" />
+        <div class="screenshot-caption">Streaming Stats · Last 365 Days</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="images/streams_by_country.png" alt="Streams by Country" />
+        <div class="screenshot-caption">Streams by Country</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="images/discovery_sources.png" alt="Discovery Sources" />
+        <div class="screenshot-caption">Discovery Sources &amp; Offline Streams</div>
+      </div>
+    </div>
   </div>
 
   <!-- EP TRACKLIST STATUS -->
@@ -312,32 +466,32 @@
       <div class="track-row">
         <div class="track-num">01</div>
         <div class="track-name">Science Rules the World</div>
-        <div class="track-discipline">Science</div>
-        <div class="track-status status-released">RELEASED</div>
+        <div class="track-disc">Science</div>
+        <div class="track-status released">RELEASED</div>
       </div>
       <div class="track-row">
         <div class="track-num">02</div>
         <div class="track-name">Technology Rules the World</div>
-        <div class="track-discipline">Technology</div>
-        <div class="track-status status-ready">READY</div>
+        <div class="track-disc">Technology</div>
+        <div class="track-status ready">READY</div>
       </div>
       <div class="track-row">
         <div class="track-num">03</div>
         <div class="track-name">Engineering Rules the World</div>
-        <div class="track-discipline">Engineering</div>
-        <div class="track-status status-redo">NEEDS REDO</div>
+        <div class="track-disc">Engineering</div>
+        <div class="track-status redo">NEEDS REDO</div>
       </div>
       <div class="track-row">
         <div class="track-num">04</div>
         <div class="track-name">Art Rules the World</div>
-        <div class="track-discipline">Art</div>
-        <div class="track-status status-ready">READY</div>
+        <div class="track-disc">Art</div>
+        <div class="track-status ready">READY</div>
       </div>
       <div class="track-row">
         <div class="track-num">05</div>
         <div class="track-name">Math Rules the World</div>
-        <div class="track-discipline">Math</div>
-        <div class="track-status status-ready">READY</div>
+        <div class="track-disc">Math</div>
+        <div class="track-status ready">READY</div>
       </div>
     </div>
   </div>
@@ -352,13 +506,18 @@
         <div class="timeline-note">Distributed to 24 platforms via DistroKid</div>
       </div>
       <div class="timeline-item">
+        <div class="timeline-date">JAN 2026</div>
+        <div class="timeline-event">Peak streaming month — ~200 streams</div>
+        <div class="timeline-note">Organic discovery, no active promotion</div>
+      </div>
+      <div class="timeline-item">
         <div class="timeline-date">APR 5, 2026 — TODAY</div>
-        <div class="timeline-event">EP announced &bull; Campaign launched &bull; Pre-save push begins</div>
-        <div class="timeline-note">108 days after Track 1 release</div>
+        <div class="timeline-event">EP announced · Campaign launched · Analytics captured</div>
+        <div class="timeline-note">393 total streams · 3 countries · 8 monthly listeners</div>
       </div>
       <div class="timeline-item future">
         <div class="timeline-date">APR 6–8, 2026</div>
-        <div class="timeline-event">Track reveals &bull; Engineering redo on Suno &bull; EP upload to DistroKid</div>
+        <div class="timeline-event">Engineering redo on Suno · EP upload to DistroKid · Social teasers</div>
       </div>
       <div class="timeline-item future">
         <div class="timeline-date">APR 9, 2026</div>
@@ -366,33 +525,38 @@
       </div>
       <div class="timeline-item future">
         <div class="timeline-date">APR 14+, 2026</div>
-        <div class="timeline-event">Curator outreach begins &bull; Analytics review</div>
+        <div class="timeline-event">Curator outreach · Analytics review · Post-release push</div>
       </div>
     </div>
   </div>
 
   <!-- INSIGHTS -->
   <div class="section">
-    <div class="section-title">Pre-Release Insights</div>
+    <div class="section-title">Key Insights</div>
 
-    <div class="insight">
-      <div class="insight-title">Discovery Gap</div>
-      <p>Track 1 has 8 monthly listeners after 108 days with zero active promotion. The track is live on 190+ markets but has no social or playlist footprint. This is not a quality problem — it's a visibility problem. The EP launch is the moment to fix it.</p>
+    <div class="insight good">
+      <div class="ititle">Organic Discovery is Working</div>
+      <p>Nearly 25% of streams came from Search — people are actively looking for this track. Another 23% from playlists, and 28% from Collections (saves/libraries). With zero promotion, that's a strong signal the concept resonates.</p>
+    </div>
+
+    <div class="insight good">
+      <div class="ititle">January Spike = Untapped Momentum</div>
+      <p>~200 streams in January suggests an organic burst — possibly a share, feature, or playlist add. Investigate what happened in January to replicate it intentionally for the EP launch.</p>
+    </div>
+
+    <div class="insight warn">
+      <div class="ititle">Steep Drop-Off Feb–Apr</div>
+      <p>Streams fell from ~200 in January to ~40 in Feb/Mar and just 2 so far in April. No promotion = no sustained growth. The EP launch on April 9 needs a campaign behind it or the same pattern will repeat.</p>
     </div>
 
     <div class="insight">
-      <div class="insight-title">Concept Advantage</div>
-      <p>STEAM as a concept is highly pitchable to education communities, science blogs, and innovation-focused playlists. Most artists don't have a story this clear. Use it in every pitch and social post.</p>
+      <div class="ititle">US is Your Core Market</div>
+      <p>218 of ~228 tracked streams are from the US. Switzerland and Spain show early international reach. Lean into the US audience first for the EP campaign — then target UK and Africa as secondary markets given the STEAM education angle.</p>
     </div>
 
     <div class="insight">
-      <div class="insight-title">AI Music Angle</div>
-      <p>Suno-generated music faces algorithmic headwinds on Spotify (excluded from Discover Weekly/Release Radar). Playlist curator outreach and direct social promotion are your primary growth levers. The AI origin is also a story — own it.</p>
-    </div>
-
-    <div class="insight">
-      <div class="insight-title">4-Day Launch Window</div>
-      <p>Releasing April 9 means uploading to DistroKid today or tomorrow. Spotify delivery is typically 24–48 hrs. Some stores may lag. Use expedited delivery if available. Prioritise finishing the Engineering track redo first.</p>
+      <div class="ititle">Playlist Placement is the Priority</div>
+      <p>23% playlist discovery with no active outreach means curator submissions post-release could meaningfully move the needle. Start SubmitHub and Indiemono submissions April 14 once the EP has some streams to show.</p>
     </div>
   </div>
 
@@ -410,7 +574,7 @@
     <span class="tag">#STEAMulater</span>
   </div>
 
-  <footer>GENERATED APR 5, 2026 &nbsp;|&nbsp; THE STEAM EP &nbsp;|&nbsp; MWANA STEAM &nbsp;|&nbsp; STEAMULATER</footer>
+  <footer>GENERATED APR 5, 2026 &nbsp;·&nbsp; THE STEAM EP &nbsp;·&nbsp; MWANA STEAM &nbsp;·&nbsp; STEAMULATER</footer>
 
 </div>
 </body>
