@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv tracks/science_rules_the_world tracks/01_science_rules_the_world)",
+      "Bash(mv tracks/track_02 tracks/02_technology_rules_the_world)",
+      "Bash(mv tracks/track_03 tracks/03_engineering_rules_the_world)",
+      "Bash(mv tracks/track_04 tracks/04_art_rules_the_world)",
+      "Bash(mv tracks/track_05 tracks/05_math_rules_the_world)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
