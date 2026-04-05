@@ -1,9 +1,10 @@
 # The STEAM EP — Who Runs the World
 
-**Artist:** WRTW
+**Artist:** Mwana STEAM
+**Label:** STEAMulater
 **EP Title:** The STEAM EP
 **Concept:** Who Runs the World — one track per STEAM discipline claiming dominance
-**Distribution:** DistroKid
+**Distribution:** DistroKid (24 platforms)
 
 ## Tracklist
 | # | Title | Status |

@@ -8,7 +8,15 @@
       "Bash(mv tracks/track_05 tracks/05_math_rules_the_world)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebSearch",
+      "WebFetch(domain:soundcloud.com)",
+      "WebFetch(domain:www.tiktok.com)",
+      "WebFetch(domain:songstats.com)",
+      "WebFetch(domain:linktr.ee)",
+      "WebFetch(domain:www.shazam.com)",
+      "WebFetch(domain:open.spotify.com)",
+      "Bash(/Users/tamukamartin/Desktop/WRTW_music/campaign/content_calendar.md:*)"
     ]
   }
 }
